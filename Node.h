@@ -8,7 +8,6 @@ class Node {
         Node<T>* next;
 
     public:
-        Node();
         Node(const T& entry);
         Node(const T& entry, Node<T>* nextPtr);
         Node(const Node<T>& other); //copy constructor will recursively make a deep copy on each node. We don't want double deletes.
@@ -21,7 +20,6 @@ class Node {
         void setItem(const T& item);
         Node<T>* getNext() const;
         void setNext(Node<T>* nextPtr);
-        Node<T>& operator=(const Node<T>& other); // when this node re-assigns itself as pre-existing node => use deep copy semantics
 };
 
 
