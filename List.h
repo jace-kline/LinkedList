@@ -1,0 +1,34 @@
+#ifndef LIST_H
+#define LIST_H
+
+#include "ListInterface.h"
+#include "Node.h"
+
+template <typename T>
+class List : ListInterface<T> {
+    private:
+        Node<T>* headPtr;
+    
+    public:
+        List<T>();
+        List<T>(const List<T>& other); // deep copy constructor
+        ~List<T>();
+        bool isEmpty() const;
+        int getLength() const;
+        void insertFront(const T& obj);
+        T getFront() throw(std::runtime_error);
+        void insertEnd(const T& obj);
+        T getEnd() throw(std::runtime_error);
+        void insertAt(const T& obj, int pos) throw(std::runtime_error);
+        void remove(int pos) throw (std::runtime_error);
+        void clear();
+        T getEntry(int pos) const throw (std::runtime_error);
+        void replace(int position, T obj) throw (std::runtime_error);
+        void reverse(); // in place reverse
+        List<T>& operator=(const List<T>& other); 
+};
+
+template <typename T>
+List<T> reverse(const List<T>& l); // copied reverse function -> don't mutate original list
+
+#endif
