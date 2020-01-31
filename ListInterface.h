@@ -29,8 +29,6 @@ class ListInterface
 
      virtual void replace(int position, T entry) throw (std::runtime_error) = 0;
 
-     virtual ListInterface<T> reverse() = 0;
-
 };
 
 #endif

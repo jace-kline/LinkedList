@@ -1,25 +1,25 @@
 #include "Node.h"
 
 template <typename T>
-Node<T>::Node<T>(const T& entry) {
+Node<T>::Node(const T& entry) {
     obj = entry;
     next = nullptr;
 }
 
 template <typename T>
-Node<T>::Node<T>(const T& entry, Node<T>* nextPtr) {
+Node<T>::Node(const T& entry, Node<T>* nextPtr) {
     obj = entry; // Assume overloaded equality operator on type T
     next = nextPtr;
 }
 
 template <typename T>
-Node<T>::Node<T>(const Node<T>& other) {
+Node<T>::Node(const Node<T>& other) {
     obj = other.obj;
     next = other.isLeaf() ? nullptr : new Node<T>(*other.next);
 }
 
 template <typename T>
-Node<T>::~Node<T>() {
+Node<T>::~Node() {
     if(!isLeaf()) delete next;
 }
 

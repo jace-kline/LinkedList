@@ -1,18 +1,18 @@
 #include "List.h"
 
 template <typename T>
-List<T>::List<T>() {
+List<T>::List() {
     headPtr = nullptr;
 }
 
 template <typename T>
-List<T>::List<T>(const List<T>& other) {
+List<T>::List(const List<T>& other) {
     if(other.isEmpty()) headPtr = nullptr;
     else headPtr = new Node<T>(other.headPtr);
 }
 
 template <typename T>
-List<T>::~List<T>() {
+List<T>::~List() {
     clear();
 }
 
@@ -28,7 +28,7 @@ int List<T>::getLength() const {
 
 template <typename T>
 void List<T>::insertFront(const T& obj) {
-    Node<T>* n = new Node(obj);
+    Node<T>* n = new Node<T>(obj);
     n->setNext(headPtr);
     headPtr = n;
 }
@@ -47,7 +47,7 @@ void List<T>::insertAt(const T& obj, int pos) throw(std::runtime_error) {
     else if(pos == 1) insertFront(obj);
     else {
         Node<T>* n1 = headPtr->nodeAt(pos - 1);
-        n1->setNext(new Node(obj, n1->getNext()));
+        n1->setNext(new Node<T>(obj, n1->getNext()));
     }
 }
 
@@ -86,9 +86,14 @@ bool List<T>::removeObj(const T& obj) {
     }
 
     if(cur != nullptr) {
-        if(cur == headPtr) removeFront();
-        parent->setNext(cur->getNext());
-        deleteNode(cur);
+        if(cur == headPtr) {
+            Node<T>* n = headPtr->getNext();
+            deleteNode(headPtr);
+            headPtr = n;
+        } else {
+            parent->setNext(cur->getNext());
+            deleteNode(cur);
+        }
         return true;
     }
     return false;
@@ -126,7 +131,7 @@ void List<T>::replace(int pos, T obj) throw (std::runtime_error) {
     else {
         Node<T>* n1 = headPtr->nodeAt(pos - 1);
         Node<T>* n2 = n1->getNext();
-        n1->setNext(new Node(obj, n2->getNext()));
+        n1->setNext(new Node<T>(obj, n2->getNext()));
         deleteNode(n2);
     }
     
@@ -136,8 +141,8 @@ template <typename T>
 void List<T>::reverse() {
     Node<T>* l1 = headPtr;
     Node<T>* l2 = nullptr;
-    while(cur != nullptr) {
-        l2 = new Node(l1->getItem(), l2);
+    while(l1 != nullptr) {
+        l2 = new Node<T>(l1->getItem(), l2);
         l1 = l1->getNext();
     }
     delete headPtr;
@@ -147,13 +152,13 @@ void List<T>::reverse() {
 template <typename T>
 List<T>& List<T>::operator=(const List<T>& other) {
     Node<T>* oldPtr = this->headPtr;
-    this->headPtr = new Node(other->headPtr); // deep copy of the node chain
+    this->headPtr = new Node<T>(other->headPtr); // deep copy of the node chain
     delete oldPtr;
     return *this;
 }
 
 template <typename T>
 List<T> reverse(const List<T>& l) {
-    List l2 = l;
+    List<T> l2 = l;
     return(l2.reverse());
 }
