@@ -1,6 +1,8 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include <stdexcept>
+
 template <typename T>
 class Node {
     private:
@@ -20,6 +22,7 @@ class Node {
         void setItem(const T& item);
         Node<T>* getNext() const;
         void setNext(Node<T>* nextPtr);
+        void removeDuplicates();
 };
 
 
@@ -29,6 +32,7 @@ template <typename T>
 void deleteNode(Node<T>* n) {
     n->setNext(nullptr);
     delete n;
+    n = nullptr;
 }
 
 #endif

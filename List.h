@@ -21,6 +21,8 @@ class List : ListInterface<T> {
         T getEnd() throw(std::runtime_error);
         void insertAt(const T& obj, int pos) throw(std::runtime_error);
         void remove(int pos) throw (std::runtime_error);
+        bool removeObj(const T& obj); // removes last instance of matching item in list
+        void removeDuplicates();
         void clear();
         T getEntry(int pos) const throw (std::runtime_error);
         void replace(int position, T obj) throw (std::runtime_error);

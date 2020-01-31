@@ -70,6 +70,36 @@ void List<T>::remove(int pos) throw (std::runtime_error) {
 }
 
 template <typename T>
+bool List<T>::removeObj(const T& obj) {
+    Node<T>* parent = nullptr;
+    Node<T>* cur = nullptr;
+    Node<T>* iterParent = nullptr;
+    Node<T>* iterCur = headPtr;
+
+    while(iterCur != nullptr) {
+        if(iterCur->getItem() == obj) {
+            parent = iterParent;
+            cur = iterCur;
+        }
+        iterParent = iterCur;
+        iterCur = iterCur->getNext();
+    }
+
+    if(cur != nullptr) {
+        if(cur == headPtr) removeFront();
+        parent->setNext(cur->getNext());
+        deleteNode(cur);
+        return true;
+    }
+    return false;
+}
+
+template <typename T>
+void List<T>::removeDuplicates() {
+    headPtr->removeDuplicates();
+}
+
+template <typename T>
 void List<T>::clear() {
     if(headPtr != nullptr) delete headPtr;
     headPtr = nullptr;
