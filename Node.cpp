@@ -34,12 +34,12 @@ int Node<T>::getLength() const {
 }
 
 template <typename T>
-Node<T>* Node<T>::getEnd() const {
+Node<T>* Node<T>::getEnd() {
     return(isLeaf() ? this : next->getEnd());
 }
 
 template <typename T>
-Node<T>* Node<T>::nodeAt(int index) const {
+Node<T>* Node<T>::nodeAt(int index) {
     if(index < 1) {
         throw(std::runtime_error("List index provided is too small. Method: 'nodeAt'.\n"));
     } else if(isLeaf() && index > 1) {
@@ -60,7 +60,7 @@ void Node<T>::setItem(const T& item) {
 }
 
 template <typename T>
-Node<T>* Node<T>::getNext() const {
+Node<T>* Node<T>::getNext() {
     return next;
 }
 
@@ -87,3 +87,22 @@ void Node<T>::removeDuplicates() {
         }
     }
 }
+
+template <typename T>
+bool Node<T>::contains(const T& entry) const {
+    return(entry == obj ? true : (isLeaf() ? false : next->contains(entry)));
+}
+
+template <typename T>
+Node<T>* Node<T>::nodeFromItem(const T& entry) {
+    return(entry == obj ? this : (isLeaf() ? nullptr : next->nodeFromItem(entry)));
+}
+
+template <typename T>
+void deleteNode(Node<T>* n) {
+    n->setNext(nullptr);
+    delete n;
+    n = nullptr;
+}
+
+template class Node<int>; // instantiate type parameter as int upon complilation

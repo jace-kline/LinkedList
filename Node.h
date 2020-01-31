@@ -16,23 +16,21 @@ class Node {
         ~Node();
         bool isLeaf() const;
         int getLength() const;
-        Node<T>* getEnd() const;
-        Node<T>* nodeAt(int index) const;
+        Node<T>* getEnd();
+        Node<T>* nodeAt(int index);
         T getItem() const;
         void setItem(const T& item);
-        Node<T>* getNext() const;
+        Node<T>* getNext();
         void setNext(Node<T>* nextPtr);
         void removeDuplicates();
+        bool contains(const T& entry) const;
+        Node<T>* nodeFromItem(const T& entry);
 };
 
 
 // This function used to both nullify the node's next ptr and then delete the node
 // CAREFUL: Ensure that you make something reference the node's initial next ptr before calling this, otherwise memory leak
 template <typename T>
-void deleteNode(Node<T>* n) {
-    n->setNext(nullptr);
-    delete n;
-    n = nullptr;
-}
+void deleteNode(Node<T>* n);
 
 #endif

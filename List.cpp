@@ -8,7 +8,7 @@ List<T>::List() {
 template <typename T>
 List<T>::List(const List<T>& other) {
     if(other.isEmpty()) headPtr = nullptr;
-    else headPtr = new Node<T>(other.headPtr);
+    else headPtr = new Node<T>(*other.headPtr);
 }
 
 template <typename T>
@@ -24,6 +24,11 @@ bool List<T>::isEmpty() const {
 template <typename T>
 int List<T>::getLength() const {
     return isEmpty() ? 0 : headPtr->getLength();
+}
+
+template <typename T>
+bool List<T>::contains(const T& obj) const {
+    return(isEmpty() ? false : headPtr->contains(obj));
 }
 
 template <typename T>
@@ -55,7 +60,7 @@ template <typename T>
 void List<T>::remove(int pos) throw (std::runtime_error) {
     if(pos > 0 || pos < (getLength() + 1)) {
         throw(std::runtime_error("Invalid deletion index for linked list. Method: 'remove'.\n"));
-    } 
+    }
     else if(pos == 1) {
         Node<T>* delNode = headPtr;
         headPtr = delNode->getNext();
@@ -112,7 +117,7 @@ void List<T>::clear() {
 
 template <typename T>
 T List<T>::getEntry(int pos) const throw (std::runtime_error) {
-    if(pos > 0 || pos < (getLength() + 1)) {
+    if(pos < 1 || pos > (getLength() + 1)) {
         throw(std::runtime_error("Invalid index for linked list. Method: 'getEntry'.\n"));
     }
     return headPtr->nodeAt(pos)->getItem();
@@ -120,7 +125,7 @@ T List<T>::getEntry(int pos) const throw (std::runtime_error) {
 
 template <typename T>
 void List<T>::replace(int pos, T obj) throw (std::runtime_error) {
-    if(pos > 0 || pos < (getLength() + 1)) {
+    if(pos < 1 || pos > (getLength() + 1)) {
         throw(std::runtime_error("Invalid index for linked list. Method: 'replace'.\n"));
     }
     else if(pos == 1) {
@@ -134,7 +139,7 @@ void List<T>::replace(int pos, T obj) throw (std::runtime_error) {
         n1->setNext(new Node<T>(obj, n2->getNext()));
         deleteNode(n2);
     }
-    
+
 }
 
 template <typename T>
@@ -150,9 +155,19 @@ void List<T>::reverse() {
 }
 
 template <typename T>
+Node<T>* List<T>::head() {
+    return headPtr;
+}
+
+template <typename T>
+Node<T>* List<T>::nodeFromItem(const T& entry) {
+    return(isEmpty() ? nullptr : headPtr->nodeFromItem(entry));
+}
+
+template <typename T>
 List<T>& List<T>::operator=(const List<T>& other) {
     Node<T>* oldPtr = this->headPtr;
-    this->headPtr = new Node<T>(other->headPtr); // deep copy of the node chain
+    this->headPtr = new Node<T>(*other.headPtr); // deep copy of the node chain
     delete oldPtr;
     return *this;
 }
@@ -162,3 +177,5 @@ List<T> reverse(const List<T>& l) {
     List<T> l2 = l;
     return(l2.reverse());
 }
+
+template class List<int>; // instantiate with int type parameter

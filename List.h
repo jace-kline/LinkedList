@@ -15,6 +15,7 @@ class List : ListInterface<T> {
         ~List<T>();
         bool isEmpty() const;
         int getLength() const;
+        bool contains(const T& obj) const;
         void insertFront(const T& obj);
         T getFront() throw(std::runtime_error);
         void insertEnd(const T& obj);
@@ -27,7 +28,9 @@ class List : ListInterface<T> {
         T getEntry(int pos) const throw (std::runtime_error);
         void replace(int position, T obj) throw (std::runtime_error);
         void reverse(); // in place reverse
-        List<T>& operator=(const List<T>& other); 
+        Node<T>* head();
+        Node<T>* nodeFromItem(const T& entry);
+        List<T>& operator=(const List<T>& other);
 };
 
 template <typename T>

@@ -15,11 +15,13 @@ class ListInterface
 
      virtual int getLength() const = 0;
 
+     virtual bool contains(const T& entry) const = 0;
+
      virtual void insertFront(const T& entry) = 0;
 
      virtual void insertEnd(const T& entry) = 0;
 
-     virtual void insertAt(int position, const T& entry) throw (std::runtime_error) = 0;
+     virtual void insertAt(const T& entry, int position) throw (std::runtime_error) = 0;
 
      virtual void remove(int position) throw (std::runtime_error) = 0;
 
