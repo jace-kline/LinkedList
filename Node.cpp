@@ -99,6 +99,12 @@ Node<T>* Node<T>::nodeFromItem(const T& entry) {
 }
 
 template <typename T>
+void Node<T>::traverse(void (*eff)(const T& val)) {
+    eff(obj);
+    if(!isLeaf()) next->traverse(eff);
+}
+
+template <typename T>
 void deleteNode(Node<T>* n) {
     n->setNext(nullptr);
     delete n;

@@ -173,6 +173,11 @@ List<T>& List<T>::operator=(const List<T>& other) {
 }
 
 template <typename T>
+void List<T>::traverse(void (*eff)(const T& val)) {
+    if(!isEmpty()) headPtr->traverse(eff);
+}
+
+template <typename T>
 List<T> reverse(const List<T>& l) {
     List<T> l2 = l;
     return(l2.reverse());

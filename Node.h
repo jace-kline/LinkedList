@@ -25,6 +25,7 @@ class Node {
         void removeDuplicates();
         bool contains(const T& entry) const;
         Node<T>* nodeFromItem(const T& entry);
+        void traverse(void (*eff)(const T& val));
 };
 
 

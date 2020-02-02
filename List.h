@@ -31,6 +31,7 @@ class List : ListInterface<T> {
         Node<T>* head();
         Node<T>* nodeFromItem(const T& entry);
         List<T>& operator=(const List<T>& other);
+        void traverse(void (*eff)(const T& val));
 };
 
 template <typename T>

@@ -31,6 +31,8 @@ class ListInterface
 
      virtual void replace(int position, T entry) throw (std::runtime_error) = 0;
 
+     virtual void traverse(void (*eff)(const T& val)) = 0;
+
 };
 
 #endif
